@@ -18,14 +18,14 @@
 \autor{Ingeniero Guido Ramírez}
 
 % El nombre del director y co-director, se puede usar el cualquier lugar del documento con el comando \supname y \cosupname y \pertesupname y \pertecosupname
-\director{Título y Nombre del director}
-\pertenenciaDirector{pertenencia} 
+\director{Ms. Jonathan Cagua}
+\pertenenciaDirector{Easymetering} 
 \codirector{} % para que aparezca en la portada se debe descomentar la opción codirector en los parámetros de documentclass
 \pertenenciaCoDirector{FIUBA}
 
 % Nombre del cliente, quien va a aprobar los resultados del proyecto, se puede usar con el comando \clientename y \empclientename
-\cliente{Nombre del cliente}
-\empresaCliente{Empresa del cliente}
+\cliente{Joffre Anzules}
+\empresaCliente{Easymetering}
  
 \fechaINICIO{20 de agosto de 2024}		%Fecha de inicio de la cursada de GdP \fechaInicioName
 \fechaFINALPlan{8 de octubre de 2024} 	%Fecha de final de cursada de GdP
@@ -143,6 +143,30 @@ Los colores usados en el diagrama deben ser adecuados, tal que ayuden a comprend
 \section{2. Identificación y análisis de los interesados}
 \label{sec:interesados}
 
+\begin{table}[ht]
+%\caption{Identificación de los interesados}
+%\label{tab:interesados}
+\begin{tabularx}{\linewidth}{@{}|l|X|X|l|@{}}
+\hline
+\rowcolor[HTML]{C0C0C0} 
+Rol           & Nombre y Apellido & Organización 	& Puesto 	\\ \hline
+Auspiciante   &   -               &     -         	&    -    	\\ \hline
+Cliente       & \clientename      &\empclientename	&    Gerente General    \\ \hline
+Impulsor      &      -             &      -        	&     -   	\\ \hline
+Responsable   & \authorname       & FIUBA        	& Alumno 	\\ \hline
+Colaboradores &      -             &     -         	&     -   	\\ \hline
+Orientador    & \supname	      & \pertesupname 	& Director del Trabajo Final \\ \hline
+Equipo        & 	 -             &      -       	&       - 	\\ \hline
+Opositores    &      -             &      -        	&       - 	\\ \hline
+Usuario final &      -             &      -        	&       - 	\\ \hline
+\end{tabularx}
+\end{table}
+
+\begin{itemize}
+	\item Orientador: El \supname\  tiene una larga trayectoria como desarrollador de firmware y hardware. Tiene experiencia usando varios microcontroladores incluyendo el seleccionado para este proyecto.
+\end{itemize}
+
+
 \begin{consigna}{red} % este comando se debe borrar para la entrega, junto con la contraparte \end{consigna}{red} 
 \textbf{Nota importante:} borrar esto y todas las consignas en color rojo antes de entregar este documento). Esto se hace eliminando el par de comandos que forman el bloque consigna, \verb!\begin{consigna}{red}! y \verb!\end{consigna}{red}! del código. 
  
@@ -158,16 +182,15 @@ Por ejemplo, si una persona es Cliente pero también colabora u orienta, dejarla
 \hline
 \rowcolor[HTML]{C0C0C0} 
 Rol           & Nombre y Apellido & Organización 	& Puesto 	\\ \hline
-Auspiciante   &                   &              	&        	\\ \hline
-Cliente       & \clientename      &\empclientename	&        	\\ \hline
-Impulsor      &                   &              	&        	\\ \hline
+Auspiciante   &   -               &     -         	&    -    	\\ \hline
+Cliente       & \clientename      &\empclientename	&    Gerente General    \\ \hline
+Impulsor      &      -             &      -        	&     -   	\\ \hline
 Responsable   & \authorname       & FIUBA        	& Alumno 	\\ \hline
-Colaboradores &                   &              	&        	\\ \hline
+Colaboradores &      -             &     -         	&     -   	\\ \hline
 Orientador    & \supname	      & \pertesupname 	& Director del Trabajo Final \\ \hline
-Equipo        & miembro1 \newline 
-				miembro2          &              	&        	\\ \hline
-Opositores    &                   &              	&        	\\ \hline
-Usuario final &                   &              	&        	\\ \hline
+Equipo        & 	 -             &      -       	&       - 	\\ \hline
+Opositores    &      -             &      -        	&       - 	\\ \hline
+Usuario final &      -             &      -        	&       - 	\\ \hline
 \end{tabularx}
 \end{table}
 
@@ -181,9 +204,7 @@ Es deseable listar a continuación las principales características de cada inte
  
 Por ejemplo:
 \begin{itemize}
-	\item Orientador: la Dra. Ing. María Gómez es experta en la temática y va a ayudar con la definición de los requerimientos y el desarrollo del firmware del embebido.
-	\item Auspiciante: es riguroso y exigente con la rendición de gastos. Tener mucho cuidado con esto.
-	\item Equipo: Juan Perez, suele pedir licencia porque tiene un familiar con una enfermedad. Planificar considerando esto.
+	\item Orientador: El \supname tiene una larga trayectoria como desarrollador de firmware y hardware. Tiene experiencia usando varios microcontroladores.
 \end{itemize}
 
 \end{consigna} % este comando se debe borrar para la entrega, junto con la contraparte \begin{consigna}{red}
@@ -191,6 +212,9 @@ Por ejemplo:
 
 \section{3. Propósito del proyecto}
 \label{sec:proposito}
+
+
+El próposito del proyecto es desarrollar un \textit{bootloader} portable para distintas familias de microcontroladores, inicialmente dirigido hacia el SoC SiW G917. El proyecto nace de la expansión de Easymetering hacia otros mercados, cuyas restricciones, no permiten los microprocesadores usados en sus productos. El \textit{bootloader} debe acoplarse al sistema de producción actual de la compañía. El arrancador usa una memoria externa particionada con lineamientos de seguridad establecidos por el cliente; almacena y administra aplicaciones binarias. Además, se comunica con el sistema de producción a través de una computadora anfitriona para ejecutar comandos y almacenar datos relevantes del equipo. 
 
 \begin{consigna}{red}
 ¿Por qué se hace el proyecto? ¿Qué se quiere lograr? 
@@ -200,6 +224,27 @@ Se recomienda que sea solo un párrafo que continúe con la idea de la frase ``e
 
 \section{4. Alcance del proyecto}
 \label{sec:alcance}
+
+El proyecto incluye:
+\begin{itemize}
+	\item Desarrollo del driver para el manejo de memoria flash externa.
+	\item Diseño de particiones de la memoria flash externa.
+	\item Manejo de archivos \textit{linker} del microcontrolador.
+	\item Integración de capas de seguridad en las imágenes del dispositivo.
+	\item Integración con el sistema de producción de la empresa
+		\begin{itemize}
+		\item Comunicación serial.
+		\item Control de versiones de hardware.
+		\item Control de versiones de firmware.
+		\item Control de inventario.
+		\end{itemize}	
+\end{itemize}
+
+El proyecto no incluye:
+\begin{itemize}
+	\item Diseño de hardware.
+	\item Comunicación wi-fi con el sistema de producción.
+\end{itemize}
 
 \begin{consigna}{red}
 ¿Qué se incluye y que no se incluye en este proyecto?
@@ -228,6 +273,15 @@ Explicitar además todo lo que no quede incluido (``El presente proyecto no incl
 
 \section{5. Supuestos del proyecto}
 \label{sec:supuestos}
+
+Para el desarrollo del presente proyecto se cuenta con:
+
+\begin{itemize}
+	\item Existencias dentro de la compañía del integrado \textit{W25Q64JVZPIQTR}, memoria flash externa.
+	\item Disponibilidad de una placa de desarrollo basada en el SoC objetivo.
+	\item Una computadora para el desarrollo del proyecto.
+	\item Disponibilidad del equipo de backend para consultas sobre el sistema de producción.
+\end{itemize}
 
 \begin{consigna}{red}
 ``Para el desarrollo del presente proyecto se supone que: ...''
