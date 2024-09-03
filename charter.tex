@@ -119,10 +119,12 @@ En la figura \ref{fig:bootloaderFlow} se puede observar la operación de un boot
 
 \begin{figure}[htpb]
 \centering 
-\includegraphics[width=.85\textwidth]{./Figuras/bootloader-flow.png}
+\includegraphics[width=.90\textwidth]{./Figuras/GdP-diagrams-bootloader.png}
 \caption{Operación génerica de un bootloader.}
 \label{fig:bootloaderFlow}
 \end{figure}
+
+\newpage
 
 \section{1.2 Problemática}
 \label{sec:s1Problematica}
@@ -136,14 +138,20 @@ Agregar nuevos microcontroladores a la solución AMI de Easymetering, conlleva i
 \section{1.3 Solución}
 \label{sec:s1Solución}
 
-Propuesta de valor: Añadir driver de memoria flash intercambiable por la compañía, particionamiento y chequeo de integridad definido por la empresa, ejecución de aplicaciones binarias guardadas para cada familia de microcontrolador agregada. Seguir buenas tecnicas de programación para facilitar la migración hacia nuevas familias y receptar nuevos requerimientos.
+En el diagrama de descomposición de la figura \ref{fig:sec1BootloaderSolution} se muestra la comunicación entre los módulos para el bootloader génerico propuesto. A pesar de que los procesos generales mostrados al principio de la sección no están explicitamente mencionados, serán considerados en la propuesta. El bootloader será capaz de interactuar con el sistema de producción de la compañía, receptando y ejecutando comandos. Es importante destacar que los módulos a realizar seguirán buenas prácticas de programación, lo que resultará en escalabilidad y portabilidad. 
 
-Diagrama de bloques
+\begin{figure}[htpb]
+\centering 
+\includegraphics[width=.80\textwidth]{./Figuras/GdPDiagrams-sec1_solution.png}
+\caption{Diagrama de bloques de bootloader propuesto.}
+\label{fig:sec1BootloaderSolution}
+\end{figure}
 
-\begin{itemize}
-	\item Descripcion funcional. ¿Condiciones funcionales?. Buscar comparar con el estado de arte (Con bootloaders) (¿De qué manera destaca?). Tal vez ejemplos de bootloaders de otros microcontroladores. [Falta]
-	\item Qué valora el cliente? [Falta]
-\end{itemize}
+Los módulos de administración de particiones, seguridad y carga y ejecución de aplicaciones juegan un rol importante para el bootloader. Son los encargados de interactuar con la memoria externa usada e interna del microcontrolador. Las interacciones con la primera son son leer, escribir y borrar aplicaciones. La relación con la memoria del microcontrolador consiste en escribir aplicaciones provenientes de la otra memoria y ejecutarlas cuando se requiera. Por otro lado, el módulo de administración de particiones y seguridad se encargará de dividir la memoria externa y establecer parametros de seguridad para chequear la integridad de sus contenidos. Por último, el módulo de \textit{board} interactua cercanamente con la información proporcionada por \textit{drivers} de otros periféricos y del microcontrolador, con la finalidad de enviar datos relevantes al sistema de producción.
+
+El valor agregado a nuestra propuesta es un bootloader reutilizable y escalable para futuras soluciones que usen otras familias de microcontroladores. Además, cumple con la necesidad especifica de la compañía de un sistema de almacenamiento de binarios propio, con particionamiento y lineamientos de seguridad personalizados.
+
+\newpage
 
 \section{2. Identificación y análisis de los interesados}
 \label{sec:interesados}
