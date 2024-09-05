@@ -224,6 +224,37 @@ Para el desarrollo del presente proyecto se cuenta con:
 \section{6. Requerimientos}
 \label{sec:requerimientos}
 
+\begin{enumerate}
+	\item Requerimientos funcionales:
+		\begin{enumerate}
+			
+			\item El sistema debe comunicarse con el sistema de producción.
+			\item La placa debe guardar los datos de producción de la compañía.
+			\item El usuario puede cargar distintos binarios a la placa objetivo.
+			\item El usuario puede arrancar cualquier binario cargado a la placa objetivo.
+			\item El sistema debe poder volver al bootloader.
+			\item El sistema detecta cuando hubo una actualización.
+		\end{enumerate}
+	\item Requerimientos de documentación:
+		\begin{enumerate}
+			\item Documentación usando Doxygen en todos los módulos, componentes o drivers
+			\item Documento de la materia 'Gestión de Proyectos'.
+			\item Documento de la memoria técnica.
+		\end{enumerate}
+	\item Requerimiento de testing...
+		\begin{enumerate}
+			\item Testing de driver para memoria externa.
+			\item Testing de driver para consola.
+			\item Testing de administración de particiones.
+			\item Testing de módulo de seguridad.
+			\item Testing de componente board.
+		\end{enumerate}
+	\item Requerimientos de la interfaz
+		\begin{enumerate}
+			\item Imitar el sistema de producción para prueba de concepto.
+		\end{enumerate}
+\end{enumerate}
+
 \begin{consigna}{red}
 Los requerimientos deben enumerarse y de ser posible estar agrupados por afinidad, por ejemplo:
 
@@ -279,6 +310,16 @@ El formato propuesto es:
 \section{8. Entregables principales del proyecto}
 \label{sec:entregables}
 
+Los entregables del proyecto son:
+
+\begin{itemize}
+	\item Documentación de doxygen.
+	\item Diagrama de flujo de procesos relevantes.
+	\item Código fuente del firmware para módulos, componentes o drivers.
+	\item Prueba de que la placa objetivo fue añadida al sistema de producción.
+	\item Memoria del trabajo final.
+\end{itemize}
+
 \begin{consigna}{red}
 Los entregables del proyecto son (ejemplo):
 
@@ -294,6 +335,83 @@ Los entregables del proyecto son (ejemplo):
 
 \section{9. Desglose del trabajo en tareas}
 \label{sec:wbs}
+
+\begin{enumerate}
+\item Familiarizarse con placa objetivo (36 h)
+	\begin{enumerate}
+	\item Leer datasheets del SoC (8 h)
+	\item Leer guias para desarrolladores del IDE (8 h)
+	\item Familiarizarse con IDE (20 h)
+	\end{enumerate}
+\item Módulo de consola (32 h)
+	\begin{enumerate}
+	\item Diseño de módulo (8 h)
+	\item Implementación de funciones (8 h)
+	\item Testing (8 h)
+	\item Pruebas (8 h)
+	\end{enumerate}
+\item Protocolo de sistema de producción (66 h)
+	\begin{enumerate}
+	\item Diseñar módulo para protocolo (8 h)
+	\item Implementar funciones (16 h)
+	\item Ejecutar comandos (24 h)
+	\item Testing (8 h)
+	\item Pruebas (8 h)
+	\end{enumerate}
+\item Driver memoria externa (52 h)
+	\begin{enumerate}
+	\item Leer documentación del integrado (4 h)
+	\item Diseño del driver	(8 h)
+	\item Implementación de funciones (24 h)
+	\item Testing (8 h)
+	\item Pruebas (8 h)
+	\end{enumerate}
+\item Módulo de seguridad (50 h)
+	\begin{enumerate}
+	\item Investigación de algoritmos usados en trabajos anteriores (8 h)
+	\item Definir algoritmos a usar (8 h)
+	\item Investigar librería de algoritmos disponible (8 h)
+	\item Implementación de funciones (16 h)
+	\item Testing (8 h)
+	\end{enumerate}
+\item Módulo de administración de particiones (80 h)
+	\begin{enumerate}
+	\item Investigación y diseño de control particiones (24 h)
+	\item Diseño de cabecera para binarios (8 h)
+	\item Diseño de información de producción guardada (8 h)
+	\item Implementación de funciones (24 h)
+	\item Testing  (8 h)
+	\item Pruebas  (8 h)
+	\end{enumerate}
+\item Módulo de carga y ejecución de aplicaciones (80 h)
+	\begin{enumerate}
+	\item Investigar funcionamiento memoria en la palca (20 h)
+	\item Diseño de módulo (20 h)
+	\item Implementación de funciones (24 h)
+	\item Testing (8 h)
+	\item Pruebas (12 h)
+	\end{enumerate}
+\item Módulo de board (64 h)
+	\begin{enumerate}
+	\item Investigar módulos de board de otros fabricantes (8 h)
+	\item Diseño del módulo (8 h)
+	\item Diseño de cabecera para binarios (8 h)
+	\item Implementación de funciones (24 h)
+	\item Testing  (8 h)
+	\item Pruebas  (8 h)
+	\end{enumerate}
+\item Documento 'Gestión de proyectos' (20 h)
+	\begin{enumerate}
+	\item Realizar documento (20 h)
+	\end{enumerate} 
+\item Documento memoria técnica (80 h)
+	\begin{enumerate}
+	\item Taller de trabajo final A (40 h)
+	\item Taller de trabajo final B (40 h)
+	\end{enumerate} 
+\end{enumerate}
+
+Cantidad total de horas: 560 h.
 
 \begin{consigna}{red}
 El WBS debe tener relación directa o indirecta con los requerimientos.  Son todas las actividades que se harán en el proyecto para dar cumplimiento a los requerimientos. Se recomienda mostrar el WBS mediante una lista indexada:
