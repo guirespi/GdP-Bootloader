@@ -1,4 +1,4 @@
-\documentclass[
+ \documentclass[
 11pt, % The default document font size, options: 10pt, 11pt, 12pt
 % codirector, % Uncomment to add a codirector to the title page
 ]{charter} 
@@ -131,9 +131,9 @@ En la figura \ref{fig:bootloaderFlow} se puede observar la operación de un boot
 
 Easymetering es una empresa que diseña y distribuye módulos AMI (Advanced Metering Infraestructure por sus siglas en inglés). Los módulos AMI son sistemas que miden, recolectan y analizan el uso de la energía, e interactúan con dispositivos como los medidores inteligentes de electricidad, de gas o de agua. Estos son capaces de gestionar información recolectada y tomar deciciones.
 
-Actualmente, ofrecen módulos basados en los microcontroladores PIC-32 y ESP-32. El segundo tipo de producto es el más vendido en el mercado de América latina. La compañía, con visión de ingresar a otros mercados, ha decidido ampliar su cartera de productos incorporando familias de microcontroladores basados en procesadores ARM Cortex-M. Una de las ventajas de esto, es su escalabilidad, es decir, no se limitan a microcontroladores de bajo costo, sino que los fabricantes han diseñado una serie de soluciones a distintas necesidades. Entre ellas destacan microcontroladores con multiples proccesadores para procesamiento extensivo de señales digitales o datos; sistemas sobre un chip complejos para manejo de energía, sistemas de control, conectividad e internet de las cosas.
+Actualmente, ofrecen productos basados en los microcontroladores de los fabricantes Nordic, Microchip, NXP y Espressif. Los módulos AMI, solución más vendida en América latina, usan microcontroladores del último fabricante. Por otro lado, productos usando otras familias se producen o se venden muy poco  .La compañía, con visión de ingresar a otros mercados, ha decidido ampliar su cartera de productos incorporando familias de microcontroladores basados en procesadores ARM Cortex-M a sus módulos AMI. Una de las ventajas de esto, es su escalabilidad, es decir, no se limitan a microcontroladores de bajo costo, sino que los fabricantes han diseñado una serie de soluciones a distintas necesidades. Entre ellas destacan microcontroladores con multiples proccesadores para procesamiento extensivo de señales digitales o datos; sistemas sobre un chip complejos para manejo de energía, sistemas de control, conectividad e internet de las cosas.
 
-Agregar nuevos microcontroladores a la solución AMI de Easymetering, conlleva incorporarlo a su sistema de producción. Este se encarga de guardar información relevante del módulo como seriales del equipo, interfaces de red y periféricos. Actualmente, existe un arrancador o binario de producción que no contempla la inclusión de nuevas familias de microcontroladores y su implementación es bastante especifica para la familia de PIC y ESP. Esto dificulta la incorpración de nuevas solciones o requisitos.  Por ende, se plantea desarrollar un arrancador génerico y portable.
+Agregar nuevos microcontroladores a la solución AMI de Easymetering, conlleva incorporarlo a su sistema de producción. Este se encarga de guardar información relevante del módulo como seriales del equipo, interfaces de red y periféricos. Actualmente, existe un arrancador o binario de producción que no contempla la inclusión de nuevas familias de microcontroladores y su implementación es bastante especifica para microcontroladores de Espressif. También, existen distintas versiones de arrancador específicos para otras familias. Esto dificulta la incorpración de nuevas solciones o requisitos.  Por ende, se plantea desarrollar un arrancador génerico y portable.
 
 \section{1.3 Solución}
 \label{sec:s1Solución}
@@ -183,7 +183,7 @@ Usuario final &      -             &      -        	&       - 	\\ \hline
 \label{sec:proposito}
 
 
-El próposito del proyecto es desarrollar un \textit{bootloader} portable para distintas familias de microcontroladores, inicialmente dirigido hacia el SoC SiW G917. El proyecto nace de la expansión de Easymetering hacia otros mercados, cuyas restricciones, no permiten los microprocesadores usados en sus productos. El \textit{bootloader} debe acoplarse al sistema de producción actual de la compañía. El arrancador usa una memoria externa particionada con lineamientos de seguridad establecidos por el cliente; almacena y administra aplicaciones binarias. Además, se comunica con el sistema de producción a través de una computadora anfitriona para ejecutar comandos y almacenar datos relevantes del equipo. 
+El próposito del proyecto es desarrollar un \textit{bootloader} portable para distintas familias de microcontroladores, inicialmente dirigido hacia el SoC SiW G917. El proyecto nace de la integración de nuevos productos basados en otras familias de microprocesadores con el objetivo de ofrecerlos e implementarlos en otros mercados. El \textit{bootloader} debe acoplarse al sistema de producción actual de la compañía. El arrancador usa una memoria externa particionada con lineamientos de seguridad establecidos por el cliente; almacena y administra aplicaciones binarias. Además, se comunica con el sistema de producción a través de una computadora anfitriona para ejecutar comandos y almacenar datos relevantes del equipo. 
 
 \section{4. Alcance del proyecto}
 \label{sec:alcance}
@@ -228,12 +228,14 @@ Para el desarrollo del presente proyecto se cuenta con:
 	\item Requerimientos funcionales:
 		\begin{enumerate}
 			
-			\item El sistema debe comunicarse con el sistema de producción.
+			\item La placa debe acoplarse al sistema de producción de la empresa.
 			\item La placa debe guardar los datos de producción de la compañía.
 			\item El usuario puede cargar distintos binarios a la placa objetivo.
 			\item El usuario puede arrancar cualquier binario cargado a la placa objetivo.
 			\item El sistema debe poder volver al bootloader.
-			\item El sistema detecta cuando hubo una actualización.
+			\item El sistema detecta cuando hubo una actualización de binarios.
+			\item Los binarios almacenados no son guardados en texto plano.
+			\item Los binarios, antes de ser almacenados, son encriptados usando el módulo de seguridad del sistema.
 		\end{enumerate}
 	\item Requerimientos de documentación:
 		\begin{enumerate}
@@ -241,7 +243,7 @@ Para el desarrollo del presente proyecto se cuenta con:
 			\item Documento de la materia 'Gestión de Proyectos'.
 			\item Documento de la memoria técnica.
 		\end{enumerate}
-	\item Requerimiento de testing...
+	\item Requerimiento de testing:
 		\begin{enumerate}
 			\item Testing de driver para memoria externa.
 			\item Testing de driver para consola.
@@ -249,63 +251,39 @@ Para el desarrollo del presente proyecto se cuenta con:
 			\item Testing de módulo de seguridad.
 			\item Testing de componente board.
 		\end{enumerate}
-	\item Requerimientos de la interfaz
+	\item Requerimientos de la interfaz:
 		\begin{enumerate}
 			\item Imitar el sistema de producción para prueba de concepto.
 		\end{enumerate}
 \end{enumerate}
 
-\begin{consigna}{red}
-Los requerimientos deben enumerarse y de ser posible estar agrupados por afinidad, por ejemplo:
-
-\begin{enumerate}
-	\item Requerimientos funcionales:
-		\begin{enumerate}
-			\item El sistema debe...
-			\item Tal componente debe...
-			\item El usuario debe poder...
-		\end{enumerate}
-	\item Requerimientos de documentación:
-		\begin{enumerate}
-			\item Requerimiento 1.
-			\item Requerimiento 2 (prioridad menor)
-		\end{enumerate}
-	\item Requerimiento de testing...
-	\item Requerimientos de la interfaz...
-	\item Requerimientos interoperabilidad...
-	\item etc...
-\end{enumerate}
-
-Leyendo los requerimientos se debe poder interpretar cómo será el proyecto y su funcionalidad.
-
-Indicar claramente cuál es la prioridad entre los distintos requerimientos y si hay requerimientos opcionales. 
-
-\textbf{¡¡¡No olvidarse de que los requerimientos incluyen a las regulaciones y normas vigentes!!!}
-
-Y al escribirlos seguir las siguientes reglas:
-\begin{itemize}
-	\item Ser breve y conciso (nadie lee cosas largas). 
-	\item Ser específico: no dejar lugar a confusiones.
-	\item Expresar los requerimientos en términos que sean cuantificables y medibles.
-\end{itemize}
-
-\end{consigna}
-
 \section{7. Historias de usuarios (\textit{Product backlog})}
 \label{sec:backlog}
 
-\begin{consigna}{red}
-Descripción: en esta sección se deben incluir las historias de usuarios y su ponderación (\textit{history points}). Recordar que las historias de usuarios son descripciones cortas y simples de una característica contada desde la perspectiva de la persona que desea la nueva capacidad, generalmente un usuario o cliente del sistema. La ponderación es un número entero que representa el tamaño de la historia comparada con otras historias de similar tipo.
+A continuación, se dan a conocer historias de usarios valoradas con \textit{story points}, basados en tres categorías aplicadas en cada historia: dificultad, D; complejidad, C; y riesgo, R. Cada categoría tiene asignada tres niveles: bajo, medio y alto. Cada nivel es asociado con un puntaje de 1, 2 y 3 respectivamente. Finalmente, se suman los niveles asignados a cada categoría para obtener la valoración final de la historia. Si la valoración no es un número de la serie Fibonacci, entonces se aproxima al número superior más cercano de la secuencia. El resultado nos informa de la dificultad, complejidad y riesgo del trabajo a realizar para cada historia de usuario.
 
-Se debe indicar explícitamente el criterio para calcular los \textit{story points} de cada historia.
-
-El formato propuesto es: 
-\begin{enumerate}
-\item ``Como [rol] quiero [tal cosa] para [tal otra cosa]."
-
-\textit{Story points}: 8 (complejidad: 3, dificultad: 2, incertidumbre: 3)
-\end{enumerate}
-\end{consigna}
+\begin{itemize}
+	\item "Como miembro del departamento de firmware, espero que el bootloader de nuestros equipos sea escalable para incorporar nuevas tecnologías o requerimientos, con la finalidad de trabajar o dar mantenimiento a un único proyecto de software"
+	\begin{itemize}
+		\item D:3 + C:3 + R:2 $\rightarrow$ 8
+	\end{itemize}
+	\item "Como miembro del departamento de firmware, es viable tener un sistema de arranque y administración de binarios genérico, para mantener nuestro código reutilizable y escalable"
+	\begin{itemize}
+		\item D:3 + C:2 + R:1 $\rightarrow$ 8
+	\end{itemize}
+	\item "Como encargado del departamento de producción, me interesa que nuevos productos sean incorporados fácilmente en nuestra base de datos, para minimizar el tiempo empleado en cada orden"
+	\begin{itemize}
+		\item D:2 + C:2 + R:1 $\rightarrow$ 5
+	\end{itemize}
+	\item "Como encargado del departamento de producción, quiero manejar una única versión actualizada de bootloader, para poder cargar binarios de aplicación para distintas soluciones o productos."
+	\begin{itemize}
+		\item D:3 + C:3 + R:3 $\rightarrow$ 13
+	\end{itemize}
+	\item "Como CEO de Easymetering, deseo a futuro delegar ordenes de producción grandes de nuestras soluciones a las fabricas ensambladoras, con un bootloader que siga nuestros lineamientos de seguridad y encriptación, para evitar la filtración de nuestros binarios de aplicación."
+	\begin{itemize}
+		\item D:1 + C:3 + R:3 $\rightarrow$ 8
+	\end{itemize}
+\end{itemize}
 
 \section{8. Entregables principales del proyecto}
 \label{sec:entregables}
@@ -313,35 +291,27 @@ El formato propuesto es:
 Los entregables del proyecto son:
 
 \begin{itemize}
-	\item Documentación de doxygen.
+	\item Documentación usando doxygen.
+	\item Documentación de la partición de memoria externa usada.
 	\item Diagrama de flujo de procesos relevantes.
 	\item Código fuente del firmware para módulos, componentes o drivers.
-	\item Prueba de que la placa objetivo fue añadida al sistema de producción.
+	\item La placa objetivo es agregada al sistema de producción.
 	\item Memoria del trabajo final.
 \end{itemize}
-
-\begin{consigna}{red}
-Los entregables del proyecto son (ejemplo):
-
-\begin{itemize}
-	\item Manual de usuario.
-	\item Diagrama de circuitos esquemáticos.
-	\item Código fuente del firmware.
-	\item Diagrama de instalación.
-	\item Memoria del trabajo final.
-	\item etc...
-\end{itemize}
-\end{consigna}
 
 \section{9. Desglose del trabajo en tareas}
 \label{sec:wbs}
 
+En esta sección se desglosa el trabajo a realizar en una lista de tareas generales y específicas.
+
 \begin{enumerate}
-\item Familiarizarse con placa objetivo (36 h)
+\item Familiarizarse con placa objetivo (64 h)
 	\begin{enumerate}
-	\item Leer datasheets del SoC (8 h)
-	\item Leer guias para desarrolladores del IDE (8 h)
+	\item Leer datasheets del SoC (4 h)
+	\item Leer guias para desarrolladores del IDE (10 h)
 	\item Familiarizarse con IDE (20 h)
+	\item Familiarizarse con el SDK del fabricante (20 h)
+	\item Familiarizarse con ambiente de configuración del fabricante (10 h)
 	\end{enumerate}
 \item Módulo de consola (32 h)
 	\begin{enumerate}
@@ -411,41 +381,7 @@ Los entregables del proyecto son (ejemplo):
 	\end{enumerate} 
 \end{enumerate}
 
-Cantidad total de horas: 560 h.
-
-\begin{consigna}{red}
-El WBS debe tener relación directa o indirecta con los requerimientos.  Son todas las actividades que se harán en el proyecto para dar cumplimiento a los requerimientos. Se recomienda mostrar el WBS mediante una lista indexada:
-
-\begin{enumerate}
-\item Grupo de tareas 1 (suma h)
-	\begin{enumerate}
-	\item Tarea 1 (tantas h)
-	\item Tarea 2 (tantas h)
-	\item Tarea 3 (tantas h)
-	\end{enumerate}
-\item Grupo de tareas 2 (suma h)
-	\begin{enumerate}
-	\item Tarea 1 (tantas h)
-	\item Tarea 2 (tantas h)
-	\item Tarea 3 (tantas h)
-	\end{enumerate}
-\item Grupo de tareas 3 (suma h)
-	\begin{enumerate}
-	\item Tarea 1 (tantas h)
-	\item Tarea 2 (tantas h)
-	\item Tarea 3 (tantas h)
-	\item Tarea 4 (tantas h)
-	\item Tarea 5 (tantas h)
-	\end{enumerate}
-\end{enumerate}
-
-Cantidad total de horas: tantas.
-
-\textbf{¡Importante!:} la unidad de horas es h y va separada por espacio del número. Es incorrecto escribir ``23hs".
-
-\textbf{Se recomienda que no haya ninguna tarea que lleve más de 40 h.} De ser así se recomienda dividirla en tareas de menor duración.
-
-\end{consigna}
+Cantidad total de horas: 588 h.
 
 \section{10. Diagrama de Activity On Node}
 \label{sec:AoN}
