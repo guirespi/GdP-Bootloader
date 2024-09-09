@@ -5,7 +5,7 @@
 
 
 % El títulos de la memoria, se usa en la carátula y se puede usar el cualquier lugar del documento con el comando \ttitle
-\titulo{Implementación de un sistema de bootloader para el SoC SiW G917} 
+\titulo{Implementación de un sistema de bootloader para el circuito integrado SiWG917} 
 
 % Nombre del posgrado, se usa en la carátula y se puede usar el cualquier lugar del documento con el comando \degreename
 \posgrado{Carrera de Especialización en Sistemas Embebidos} 
@@ -58,11 +58,8 @@
 \rowcolor[HTML]{C0C0C0} 
 Revisión & \multicolumn{1}{c|}{\cellcolor[HTML]{C0C0C0}Detalles de los cambios realizados} & Fecha      \\ \hline
 0      & Creación del documento                                 &\fechaInicioName \\ \hline
-%1      & Se completa hasta el punto 5 inclusive                & {día} de {mes} de 202X \\ \hline
-%2      & Se completa hasta el punto 9 inclusive
-%		  Se puede agregar algo más \newline
-%		  En distintas líneas \newline
-%		  Así                                                    & {día} de {mes} de 202X \\ \hline
+1      & Se completa hasta el punto 5                & 3 de septiembre de 2024 \\ \hline
+2      & Se completa hasta el punto 9 & 10 de septiembre de 2024 \\ \hline
 %3      & Se completa hasta el punto 12 inclusive                & {día} de {mes} de 202X \\ \hline
 %4      & Se completa el plan	                                 & {día} de {mes} de 202X \\ \hline
 
@@ -84,7 +81,7 @@ Buenos Aires, \fechaInicioName
 
 \vspace{2cm}
 
-Por medio de la presente se acuerda con el \authorname\hspace{1px} que su Trabajo Final de la \degreename\hspace{1px} se titulará ``\ttitle'' y consistirá en \textcolor{red}{la implementación de un prototipo de un sistema de control de temperatura de una caldera industrial}. El trabajo tendrá un presupuesto preliminar estimado de \textcolor{red}{600} horas y un costo estimado de \textcolor{red}{\$ XXX}, con fecha de inicio el \fechaInicioName\hspace{1px} y fecha de presentación pública el \fechaFinalName.
+Por medio de la presente se acuerda con el \authorname\hspace{1px} que su Trabajo Final de la \degreename\hspace{1px} se titulará ``\ttitle'' y consistirá en la integración del equipo mencionado a un sistema de producción por medio de un arrancador génerico, portable y escalable. El trabajo tendrá un presupuesto preliminar estimado de 600 horas, con fecha de inicio el \fechaInicioName\hspace{1px} y fecha de presentación pública el \fechaFinalName.
 
 Se adjunta a esta acta la planificación inicial.
 
@@ -111,11 +108,11 @@ Se adjunta a esta acta la planificación inicial.
 \section{1.1.1 Bootloader}
 \label{sec:edaBootloader}
 
-Un bootloader o arrancador no es diferente a una aplicación cómun en un microcontrolador. De hecho, es igual a una aplicación común. Lo que hace especial a esta es su propósito: permitir la actualización y administración de software sin unar un hardware especializado, y en algunos casos, ser el primer punto de chequeo de integridad de un sistema embebido. Existen variedad de bootloaders; pueden comunicarse a través de diferentes protocolos como UART, CAN, I2C, Ethernet, USB, entre otros. Los sistemas que poseen un arrancador tienen dentro dos programas coexistiendo y deben ser capaces de detectar la existencia de actualizaciones de sistema en progreso.
+Un bootloader o arrancador no es diferente a una aplicación cómun en un microcontrolador. De hecho, es igual a una aplicación común. Lo que hace especial a este es su propósito: permitir la actualización y administración de software sin usar un hardware especializado, y en algunos casos, ser el primer punto de chequeo de integridad de un sistema embebido. Existen variedad de bootloaders; pueden comunicarse a través de diferentes protocolos como UART, CAN, I2C, Ethernet, USB, entre otros. Los sistemas que poseen un arrancador tienen dentro dos programas coexistiendo y deben ser capaces de detectar la existencia de actualizaciones de sistema en progreso.
 
-Cada boootloader puede tener requerimientos únicos basados en su aplicación objetivo, sin embargo existen procesos generales como la capacidad de cambiar entre programa y bootloader, comunicación a través de una interfaz, análisis de registros, guardado de datos en memoria no vólatil, chequeo de integridad de aplicaciones y seguridad del código almacenado.Independientemente de los requerimientos de la aplicación, los procesos generales inducen a una operación relativamente estandar.
+Cada boootloader puede tener requerimientos únicos basados en su aplicación objetivo, sin embargo existen procesos generales como la capacidad de cambiar entre programa y bootloader, comunicación a través de una interfaz, análisis de registros, guardado de datos en memoria no vólatil, chequeo de integridad de aplicaciones y seguridad del código almacenado. Independientemente de los requerimientos de la aplicación, los procesos generales inducen a una operación relativamente estandar.
 
-En la figura \ref{fig:bootloaderFlow} se puede observar la operación de un bootloader génerico. Se destaca que en el incio del programa se decide correr la aplicación o al arrancador. Este último tiene la capacidad de receptar y ejectuar comandos, y finalmente salir de la aplicación. Los comandos abarcan las operaciones generales mencionadas anteriormente, y pueden añadir el uso de otros periféricos o el envio de datos adicionales hacia un anfitrión.
+En la figura \ref{fig:bootloaderFlow} se puede observar la operación de un bootloader génerico. Se destaca que en el incio del programa se decide ejecutar la aplicación o al arrancador. Este último tiene la capacidad de receptar y ejectuar comandos, y finalmente salir de la aplicación. Los comandos abarcan las operaciones generales mencionadas anteriormente, y pueden añadir el uso de otros periféricos o el envio de datos adicionales hacia un anfitrión.
 
 \begin{figure}[htpb]
 \centering 
@@ -131,9 +128,9 @@ En la figura \ref{fig:bootloaderFlow} se puede observar la operación de un boot
 
 Easymetering es una empresa que diseña y distribuye módulos AMI (Advanced Metering Infraestructure por sus siglas en inglés). Los módulos AMI son sistemas que miden, recolectan y analizan el uso de la energía, e interactúan con dispositivos como los medidores inteligentes de electricidad, de gas o de agua. Estos son capaces de gestionar información recolectada y tomar deciciones.
 
-Actualmente, ofrecen productos basados en los microcontroladores de los fabricantes Nordic, Microchip, NXP y Espressif. Los módulos AMI, solución más vendida en América latina, usan microcontroladores del último fabricante. Por otro lado, productos usando otras familias se producen o se venden muy poco  .La compañía, con visión de ingresar a otros mercados, ha decidido ampliar su cartera de productos incorporando familias de microcontroladores basados en procesadores ARM Cortex-M a sus módulos AMI. Una de las ventajas de esto, es su escalabilidad, es decir, no se limitan a microcontroladores de bajo costo, sino que los fabricantes han diseñado una serie de soluciones a distintas necesidades. Entre ellas destacan microcontroladores con multiples proccesadores para procesamiento extensivo de señales digitales o datos; sistemas sobre un chip complejos para manejo de energía, sistemas de control, conectividad e internet de las cosas.
+Actualmente, ofrecen productos basados en los microcontroladores de los fabricantes Nordic, Microchip, NXP y Espressif. Los módulos AMI, solución más vendida en América latina, usan microcontroladores del último fabricante. Por otro lado, productos usando otras familias se producen o se venden muy poco  .La compañía, con visión de ingresar a otros mercados, ha decidido ampliar su cartera de productos incorporando familias de microcontroladores basados en procesadores ARM Cortex-M a sus módulos AMI. Una de las ventajas de esto, es su escalabilidad, es decir, no se limitan a microcontroladores de bajo costo, sino que los fabricantes han diseñado una serie de soluciones a distintas necesidades. Entre ellas destacan microcontroladores con multiples proccesadores para procesamiento extensivo de señales digitales o datos; sistemas integrados en un chip (SoC por sus siglas en inglés) para manejo de energía, sistemas de control, conectividad e internet de las cosas.
 
-Agregar nuevos microcontroladores a la solución AMI de Easymetering, conlleva incorporarlo a su sistema de producción. Este se encarga de guardar información relevante del módulo como seriales del equipo, interfaces de red y periféricos. Actualmente, existe un arrancador o binario de producción que no contempla la inclusión de nuevas familias de microcontroladores y su implementación es bastante especifica para microcontroladores de Espressif. También, existen distintas versiones de arrancador específicos para otras familias. Esto dificulta la incorpración de nuevas solciones o requisitos.  Por ende, se plantea desarrollar un arrancador génerico y portable.
+Agregar nuevos microcontroladores a la solución AMI de Easymetering, conlleva incorporarlo a su sistema de producción. Este se encarga de guardar información relevante del módulo como seriales del equipo, interfaces de red y periféricos. Actualmente, existe un arrancador o binario de producción que no contempla la inclusión de nuevas familias de microcontroladores y su implementación es bastante específica para microcontroladores de Espressif. También, existen distintas versiones de arrancador específicos para otras familias. Esto dificulta la incorpración de nuevas solciones o requisitos.  Por ende, se plantea desarrollar un arrancador génerico y portable.
 
 \section{1.3 Solución}
 \label{sec:s1Solución}
@@ -143,13 +140,13 @@ En el diagrama de descomposición de la figura \ref{fig:sec1BootloaderSolution} 
 \begin{figure}[htpb]
 \centering 
 \includegraphics[width=.80\textwidth]{./Figuras/GdPDiagrams-sec1_solution.png}
-\caption{Diagrama de bloques de bootloader propuesto.}
+\caption{Diagrama de descomposición para bootloader propuesto.}
 \label{fig:sec1BootloaderSolution}
 \end{figure}
 
-Los módulos de administración de particiones, seguridad y carga y ejecución de aplicaciones juegan un rol importante para el bootloader. Son los encargados de interactuar con la memoria externa usada e interna del microcontrolador. Las interacciones con la primera son son leer, escribir y borrar aplicaciones. La relación con la memoria del microcontrolador consiste en escribir aplicaciones provenientes de la otra memoria y ejecutarlas cuando se requiera. Por otro lado, el módulo de administración de particiones y seguridad se encargará de dividir la memoria externa y establecer parametros de seguridad para chequear la integridad de sus contenidos. Por último, el módulo de \textit{board} interactua cercanamente con la información proporcionada por \textit{drivers} de otros periféricos y del microcontrolador, con la finalidad de enviar datos relevantes al sistema de producción.
+Los módulos de administración de particiones, seguridad y carga y ejecución de aplicaciones juegan un rol importante para el bootloader. Son los encargados de interactuar con la memoria externa usada e interna del microcontrolador. Las interacciones con la primera son son leer, escribir y borrar aplicaciones. La relación con la memoria del microcontrolador consiste en escribir aplicaciones provenientes de la otra memoria y ejecutarlas cuando se requiera. Por otro lado, el módulo de administración de particiones y seguridad se encargará de dividir la memoria externa y establecer parámetros de seguridad para chequear la integridad de sus contenidos. Por último, el módulo de \textit{board} interactua cercanamente con la información proporcionada por \textit{drivers} de otros periféricos y del microcontrolador, con la finalidad de enviar datos relevantes al sistema de producción.
 
-El valor agregado a nuestra propuesta es un bootloader reutilizable y escalable para futuras soluciones que usen otras familias de microcontroladores. Además, cumple con la necesidad especifica de la compañía de un sistema de almacenamiento de binarios propio, con particionamiento y lineamientos de seguridad personalizados.
+El valor agregado de la propuesta es un bootloader reutilizable y escalable para futuras soluciones que usen otras familias de microcontroladores. Además, cumple con la necesidad específica de la compañía de incorporar un sistema de almacenamiento de binarios propio, con particionamiento y lineamientos de seguridad personalizados.
 
 \newpage
 
@@ -163,27 +160,22 @@ El valor agregado a nuestra propuesta es un bootloader reutilizable y escalable 
 \hline
 \rowcolor[HTML]{C0C0C0} 
 Rol           & Nombre y Apellido & Organización 	& Puesto 	\\ \hline
-Auspiciante   &   -               &     -         	&    -    	\\ \hline
 Cliente       & \clientename      &\empclientename	&    Gerente General    \\ \hline
-Impulsor      &      -             &      -        	&     -   	\\ \hline
 Responsable   & \authorname       & FIUBA        	& Alumno 	\\ \hline
-Colaboradores &      -             &     -         	&     -   	\\ \hline
 Orientador    & \supname	      & \pertesupname 	& Director del Trabajo Final \\ \hline
-Equipo        & 	 -             &      -       	&       - 	\\ \hline
-Opositores    &      -             &      -        	&       - 	\\ \hline
-Usuario final &      -             &      -        	&       - 	\\ \hline
+Usuario final & Departamento de firmware/producción & Easymetering &       - 	\\ \hline
 \end{tabularx}
 \end{table}
 
 \begin{itemize}
-	\item Orientador: El \supname\  tiene una larga trayectoria como desarrollador de firmware y hardware. Tiene experiencia usando varios microcontroladores incluyendo el seleccionado para este proyecto.
+	\item Orientador: el \supname\  tiene una larga trayectoria como desarrollador de firmware y hardware. Tiene experiencia usando varios microcontroladores incluyendo el seleccionado para este proyecto.
 \end{itemize}
 
 \section{3. Propósito del proyecto}
 \label{sec:proposito}
 
 
-El próposito del proyecto es desarrollar un \textit{bootloader} portable para distintas familias de microcontroladores, inicialmente dirigido hacia el SoC SiW G917. El proyecto nace de la integración de nuevos productos basados en otras familias de microprocesadores con el objetivo de ofrecerlos e implementarlos en otros mercados. El \textit{bootloader} debe acoplarse al sistema de producción actual de la compañía. El arrancador usa una memoria externa particionada con lineamientos de seguridad establecidos por el cliente; almacena y administra aplicaciones binarias. Además, se comunica con el sistema de producción a través de una computadora anfitriona para ejecutar comandos y almacenar datos relevantes del equipo. 
+El próposito del proyecto es desarrollar un \textit{bootloader} portable para distintas familias de microcontroladores, inicialmente dirigido hacia el SoC SiWG917. El proyecto nace de la integración de nuevos productos basados en otras familias de microprocesadores con el objetivo de ofrecerlos e implementarlos en otros mercados. El \textit{bootloader} debe acoplarse al sistema de producción actual de la compañía. El arrancador usa una memoria externa particionada con lineamientos de seguridad establecidos por el cliente; almacena y administra aplicaciones binarias. Además, se comunica con el sistema de producción a través de una computadora anfitriona para ejecutar comandos y almacenar datos relevantes del equipo. 
 
 \section{4. Alcance del proyecto}
 \label{sec:alcance}
@@ -206,19 +198,20 @@ El proyecto incluye:
 El proyecto no incluye:
 \begin{itemize}
 	\item Diseño de hardware.
-	\item Comunicación wi-fi con el sistema de producción.
+	\item Comunicación Wi-Fi con el sistema de producción.
 \end{itemize}
 
 \section{5. Supuestos del proyecto}
 \label{sec:supuestos}
 
-Para el desarrollo del presente proyecto se cuenta con:
+Para el desarrollo del presente proyecto se supone que:
 
 \begin{itemize}
 	\item Existencias dentro de la compañía del integrado \textit{W25Q64JVZPIQTR}, memoria flash externa.
 	\item Disponibilidad de una placa de desarrollo basada en el SoC objetivo.
 	\item Una computadora para el desarrollo del proyecto.
 	\item Disponibilidad del equipo de backend para consultas sobre el sistema de producción.
+	\item Un equipo de software estará disponible para la integración del nuevo SoC en la base de datos del sistema de producción.
 \end{itemize}
 
 \section{6. Requerimientos}
