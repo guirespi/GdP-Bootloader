@@ -61,7 +61,7 @@ Revisión & \multicolumn{1}{c|}{\cellcolor[HTML]{C0C0C0}Detalles de los cambios 
 1      & Se completa hasta el punto 5                & 3 de septiembre de 2024 \\ \hline
 2      & Se completa hasta el punto 9 & 10 de septiembre de 2024 \\ \hline
 3      & Se completa hasta el punto 12                & 17 de septiembre de 2024 \\ \hline
-%4      & Se completa el plan	                                 & {día} de {mes} de 202X \\ \hline
+4      & Se completa el plan	                                 & 23 de septiembre de 2024 \\ \hline
 
 % Si hay más correcciones pasada la versión 4 también se deben especificar acá
 
@@ -475,35 +475,36 @@ Descripción &
 \section{13. Gestión de riesgos}
 \label{sec:riesgos}
 
-\begin{consigna}{red}
-a) Identificación de los riesgos (al menos cinco) y estimación de sus consecuencias:
- 
-Riesgo 1: detallar el riesgo (riesgo es algo que si ocurre altera los planes previstos de forma negativa)
+Riesgo 1: El kit de desarrollo de la memoria externa se daña.
 \begin{itemize}
-	\item Severidad (S): mientras más severo, más alto es el número (usar números del 1 al 10).\\
-	Justificar el motivo por el cual se asigna determinado número de severidad (S).
-	\item Probabilidad de ocurrencia (O): mientras más probable, más alto es el número (usar del 1 al 10).\\
-	Justificar el motivo por el cual se asigna determinado número de (O). 
+	\item Severidad (S): 4, se pierde la capacidad de probar módulos o aplicaciones que involucren el uso de la memoria. Afecta más si encontramos
+	en las etapas de prueba de los últimos módulos.
+	\item Probabilidad de ocurrencia (O): 2, no se ejecutaran comandos que puedan dejar obsoleto o el kit. Además, no se hará una gran cantidad de escrituras o borrados a la memoria flash. Se analizará cuidadosamente las conexiones del integrado antes de energizarlo para evitar fallos eléctricos.
 \end{itemize}   
 
-Riesgo 2:
+Riesgo 2: El kit de desarrollo del SoC se daña.
 \begin{itemize}
-	\item Severidad (S): X.\\
-	Justificación...
-	\item Ocurrencia (O): Y.\\
-	Justificación...
+	\item Severidad (S): 8, porque todas las sub-tareas de pruebas en el hardware serán retrasadas hasta importar otro equipo y su costo es notable.
+	\item Probabilidad de ocurrencia (O): 6, porque existe la probabilidad que los desarrolladores no hayan trabajado con el kit antes. La implementación de módulos relacionados al arranque de la placa aumenta el riesgo de daño permanente si no se trata con precaución.
 \end{itemize}
 
-Riesgo 3:
+Riesgo 3: El encargado en el equipo de backend del sistema de producción de la empresa se retira.
 \begin{itemize}
-	\item Severidad (S):  X.\\
-	Justificación...
-	\item Ocurrencia (O): Y.\\
-	Justificación...
+	\item Severidad (S): 5, porque a pesar de que exista documentación del sistema producción, se perdería la capacidad de hacer preguntas directas y específicas que pueden no estar explicitas en los documentos.
+	\item Probabilidad de ocurrencia (O): 1, el encargado en el equipo de backend tiene bastantes años trabajando para la empresa y es personal de confianza.
 \end{itemize}
 
+Riesgo 4: El SoC inicial es cambiado por otro de distinto fabricante.
+\begin{itemize}
+	\item Severidad (S): 4, debido a que el valor agregado de la propuesta es un bootloader portable, adaptar los módulos a un nuevo circuito integrado hace que la tarea de migración reduzca su dificultad.
+	\item Probabilidad de ocurrencia (O): 5, porque a pesar de que se pensó incorporar el SiWG917 en un principio, puede que el requerimiento de un cliente haga cambiarlo. 
+\end{itemize}
 
-b) Tabla de gestión de riesgos:      (El RPN se calcula como RPN=SxO)
+Riesgo 5: Nuevas personas añadidas al equipo no mantienen la calidad del código. 
+\begin{itemize}
+	\item Severidad (S): 6, no mantener la misma calidad del código llevan a mayor aparición de errores, poca legibilidad del proyecto y retraso ocasionado por sus consecuentes correcciones.
+	\item Probabilidad de ocurrencia (O): 5, cada desarrollador programa de distinta manera y puede que sus prácticas no se alinien a las requeridas para cumplir los requerimiento del proyecto.  
+\end{itemize}
 
 \begin{table}[htpb]
 \centering
@@ -511,77 +512,156 @@ b) Tabla de gestión de riesgos:      (El RPN se calcula como RPN=SxO)
 \hline
 \rowcolor[HTML]{C0C0C0} 
 Riesgo & S & O & RPN & S* & O* & RPN* \\ \hline
-       &   &   &     &    &    &      \\ \hline
-       &   &   &     &    &    &      \\ \hline
-       &   &   &     &    &    &      \\ \hline
-       &   &   &     &    &    &      \\ \hline
-       &   &   &     &    &    &      \\ \hline
+1. El kit de desarrollo de la memoria externa se daña.       & 4 &  2 & 8    & -   &  -  & -     \\ \hline
+2. El kit de desarrollo del SoC se daña. & 8 & 6 & 48 &  5  &  3  &  15    \\ \hline
+3. El encargado del sistema de producción de la empresa se retira.& 5 & 1 & 5  & -   & -   & -     \\ \hline
+4. El SoC inicial es cambiado por otro de distinto fabricante. & 4 & 5 & 20 & -   & -   & -     \\ \hline
+5. Nuevas personas añadidas al equipo no mantienen la calidad del código. & 6 & 5 & 30 & 4 & 3 & 12     \\ \hline
 \end{tabularx}%
 \end{table}
 
-Criterio adoptado: 
+Criterio adoptado:
 
-Se tomarán medidas de mitigación en los riesgos cuyos números de RPN sean mayores a...
+Se tomarán medidas de mitigación en los riesgos cuyos números de RPN sean mayores a 25.
 
-Nota: los valores marcados con (*) en la tabla corresponden luego de haber aplicado la mitigación.
+Riesgo 2: Al implementar módulos con riesgo de dañar el kit de desarrollo, se repetirá la lectura de datasheet del SoC y guías para desarrolladores. Además, constantemente se pedirá retroalimentación del código e ideas para estos módulos al director del proyecto.
+\begin{itemize}
+	\item Severidad (S): 5, los errores que puedan llegar a ocurrir son reversibles.  
+	\item Probabilidad de ocurrencia (O): 3, realizar lecturas antes de implementar módulos delicados y contar la retroalimentación de personal con experiencia previa trabajando con la placa de desarrollo, reduce las probabilidades de dañar el equipo.
+\end{itemize}
 
-c) Plan de mitigación de los riesgos que originalmente excedían el RPN máximo establecido:
- 
-Riesgo 1: plan de mitigación (si por el RPN fuera necesario elaborar un plan de mitigación).
-  Nueva asignación de S y O, con su respectiva justificación:
-  \begin{itemize}
-	\item Severidad (S*): mientras más severo, más alto es el número (usar números del 1 al 10).
-          Justificar el motivo por el cual se asigna determinado número de severidad (S).
-	\item Probabilidad de ocurrencia (O*): mientras más probable, más alto es el número (usar del 1 al 10).
-          Justificar el motivo por el cual se asigna determinado número de (O).
-	\end{itemize}
-
-Riesgo 2: plan de mitigación (si por el RPN fuera necesario elaborar un plan de mitigación).
- 
-Riesgo 3: plan de mitigación (si por el RPN fuera necesario elaborar un plan de mitigación).
-
-\end{consigna}
-
+Riesgo 5: Se dará capacitación sobre los estándares y prácticas que se espera en el código así como el procedimiento a realizar y organización para cada grupo de tareas. Se añadirán al equipo personas con buen desempeño en la programación.
+\begin{itemize}
+	\item Severidad (S): 4, menos aparición de errores y menores retrasos en las implementaciones.   
+	\item Probabilidad de ocurrencia (O): 3, los miembros añadidos al equipo tendrán bases previas y la capacitación será adecuada.
+\end{itemize}
 
 \section{14. Gestión de la calidad}
 \label{sec:calidad}
 
-\begin{consigna}{red}
-Elija al menos diez requerimientos que a su criterio sean los más importantes/críticos/que aportan más valor y para cada uno de ellos indique las acciones de verificación y validación que permitan asegurar su cumplimiento.
-
 \begin{itemize} 
-\item Req \#1: copiar acá el requerimiento con su correspondiente número.
+\item Req \#1: La placa debe acoplarse al sistema de producción de la empresa.
 
 \begin{itemize}
-	\item Verificación para confirmar si se cumplió con lo requerido antes de mostrar el sistema al cliente. Detallar.
-	\item Validación con el cliente para confirmar que está de acuerdo en que se cumplió con lo requerido. Detallar. 
+	\item Verificación: Se verificará que las tramas entre la placa y el sistema de producción sean correctamente enviadas, recibidas y procesadas.
+	\item Validación: Se podrá usar el programa de escritorio para producción de la empresa para realizar un proceso completo sobre la placa.
 \end{itemize}
 
 \end{itemize}
 
-Tener en cuenta que en este contexto se pueden mencionar simulaciones, cálculos, revisión de hojas de datos, consulta con expertos, mediciones, etc.  
+\begin{itemize} 
+\item Req \#2: La placa debe guardar los datos de producción de la compañía.
 
-Las acciones de verificación suelen considerar al entregable como ``caja blanca'', es decir se conoce en profundidad su funcionamiento interno.  
+\begin{itemize}
+	\item Verificación: Se verificará que la información recibida sea correctamente guardada en la memoria externa sin ningún tipo de corrupción. Además, se verificará que no exista irregularidades al leerla de esta.  
+	\item Validación: Se realizará una impresión en la consola de logs con los datos recibidos para su visualización al finalizar el proceso de producción.
+\end{itemize}
 
-En cambio, las acciones de validación suelen considerar al entregable como ``caja negra'', es decir, que no se conocen los detalles de su funcionamiento interno.
+\end{itemize}
 
-\end{consigna}
+\begin{itemize} 
+\item Req \#3: Los binarios, antes de ser almacenados, son encriptados usando el módulo de seguridad del sistema.
+
+\begin{itemize}
+	\item Verificación: Se verificará que los datos que pasen por el módulo de seguridad sean correctamente encriptados. Se hará pruebas de desencriptación para comprobar que se obtengan los datos originales en texto plano. Además, se deser necesario se hará uso de herramientas de terceros que nos permitan comparar que nuestra salida de encriptación es correcta. 
+	\item Validación: Se podrá mostrar al cliente una parte distinguible del contenido original del binarios e imprimir en la consola de logs la misma sección del contenido encriptada en la memoria externa. Se explicará que algoritmo se usó y su robustez de manera superficial.
+\end{itemize}
+
+\end{itemize}
+
+\begin{itemize} 
+\item Req \#4: El usuario puede cargar y guardar varios binarios a la placa objetivo.
+
+\begin{itemize}
+	\item Verificación: Se verificará que el contenido de los binarios guardados en la memoria externa sean correctos. Se usarán algoritmos específicos para comprobar la integridad de los datos guardados. La memoria externa será particionada para guardar distintos binarios, se leerá las particiones usadas para comprobar su contenido. Los binarios guardados tendrán una cabecera con datos relevantes sobre estos. 
+	\item Validación: Se imprimirá en la consola de logs un listado con los datos relevantes de cada binario guardado en la memoria externa.
+\end{itemize}
+
+\end{itemize}
+
+\newpage
+
+\begin{itemize} 
+\item Req \#5: El usuario puede arrancar cualquier binario cargado a la placa objetivo.
+
+\begin{itemize}
+	\item Verificación: Se verificará la correcta ejecución de los binarios siguiendo los lineamientos del fabricante y de la arquitectura del equipo. Se verificará que, sin un reinicio o apagado de la placa, se puedan arrancar distintos binarios guardados en la memoria externa. 
+	\item Validación: Se preparán dos aplicaciones distintivas entre ellas y se demostrará el arranque y ejecución de cada una de ellas usando el bootloader.
+\end{itemize}
+
+\end{itemize}
+
+\begin{itemize} 
+\item Req \#6: El sistema debe poder volver al bootloader.
+
+\begin{itemize}
+	\item Verificación: La aplicación de bootloader estará en la memoria interna del SoC. Cada aplicación cargada puede volver a ejecutar el arrancador. Se verificará que se haga el salto de aplicación correctamente siguiendo los lineamientos del fabricante y la arquitectura del equipo.
+	\item Validación: El bootloader imprimirá a través de la consola de logs un mensaje específico de bienvenida al ejecutarse. Los binarios cargados para la validación tendrán una señal de entrada simple, como presionar un botón, para volver al bootloader.
+\end{itemize}
+
+\end{itemize}
+
+\begin{itemize} 
+\item Req \#7: Documentación usando Doxygen en todos los módulos, componentes o drivers.
+
+\begin{itemize}
+	\item Verificación: Se usará \textit{cmake} para la automatización de generación de la documentación de Doxygen, se verificará la salida. Se asegurará de que los módulos de software sigan los lineamientos para una correcta generación de la documentación.
+	\item Validación: Se mostrará la documentación generada por Doxygen como un html en el cual se pueda navegar a través de los distintos módulos de software implementados. 
+\end{itemize}
+
+\end{itemize}
+
+\begin{itemize} 
+\item Req \#8: Testing de driver para memoria externa.
+
+\begin{itemize}
+	\item Verificación: Realizar casos de TDD sobre el driver de memoria externa. Realizar pruebas en la placa de desarrollo. Verificar integridad de datos escritos y leídos de la memoria externa. Cuando se compile el componente, se deberá pasar por los casos de testing realizados.
+	\item Validación: Al realizar cambios sobre el componente se podrá verificar que los casos de TDD siguen siendo exitosos.
+\end{itemize}
+
+\end{itemize}
+
+\begin{itemize} 
+\item Req \#9: Testing de administración de particiones.
+
+\begin{itemize}
+	\item Verificación: Realizar casos de TDD sobre el módulo de administarción de particiones. Realizar pruebas en la placa de desarrollo. Verificar que el módulo sea portable y siga lineamientos del fabricante y arquitectura para su implementación. Cuando se compile el componente, se deberá pasar por los casos de testing realizados.
+	\item Validación: Al realizar cambios sobre el componente se podrá verificar que los casos de TDD siguen siendo exitosos.
+\end{itemize}
+
+\end{itemize}
+\newpage
+
+\begin{itemize} 
+\item Req \#10: Testing de módulo de seguridad.
+
+\begin{itemize}
+	\item Verificación: Realizar casos de TDD sobre el módulo de seguridad. Realizar pruebas en la placa de desarrollo. Verificar que el algoritmos de seguridad funcione correctamente. Verificación de la integridad de los datos que pasan por este módulo. Cuando se compile el componente, se deberá pasar por los casos de testing realizados.
+	\item Validación: Al realizar cambios sobre el componente se podrá verificar que los casos de TDD siguen siendo exitosos.
+\end{itemize}
+
+\end{itemize}
 
 \section{15. Procesos de cierre}    
 \label{sec:cierre}
 
-\begin{consigna}{red}
-Establecer las pautas de trabajo para realizar una reunión final de evaluación del proyecto, tal que contemple las siguientes actividades:
+Cuando el proyecto sea finalizado y aceptado junto a los documentos académicos correspodientes se realizaraán las siguientes actividades:
 
 \begin{itemize}
-	\item Pautas de trabajo que se seguirán para analizar si se respetó el Plan de Proyecto original:\\
-	 - Indicar quién se ocupará de hacer esto y cuál será el procedimiento a aplicar. 
-	\item Identificación de las técnicas y procedimientos útiles e inútiles que se emplearon, los problemas que surgieron y cómo se solucionaron:\\
-	 - Indicar quién se ocupará de hacer esto y cuál será el procedimiento para dejar registro.
-	\item Indicar quién organizará el acto de agradecimiento a todos los interesados, y en especial al equipo de trabajo y colaboradores:\\
-	  - Indicar esto y quién financiará los gastos correspondientes.
+	\item Revisión del plan del proyecto y comparación con la ejecución: se verificará sí se cumplieron los requisitos del cliente, así como el tiempo y esfuerzo dedicada a cada tarea específica. Se tomarán en cuenta la existencia de contratiempos o falta de cumplimiento de los supuestos o recursos necesarios.
+	\begin{itemize}
+		\item Esta actividad estará a cargo del director y alumno.	
+	\end{itemize}	 
+	
+	\item Identificación de las técnicas y procedimientos útiles e inútiles que se emplearon, los problemas que surgieron y cómo se solucionaron: se identificará si la organización del código implementado, TDD y pruebas fueron adecuados.
+	\begin{itemize}
+		\item Esta actividad estará a cargo del director y alumno.	
+	\end{itemize}	 	
+	
+	\item El acto de agradecimiento se dará durante el acto de presentación y defensa del proyecto: se agradecerá a los evaluadores, director y cliente.
+	\begin{itemize}
+		\item Esta actividad será realizada por las autoridades del posgrado.	
+	\end{itemize}	 
 \end{itemize}
-
-\end{consigna}
 
 \end{document}
