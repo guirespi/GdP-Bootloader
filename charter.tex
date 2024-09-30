@@ -81,7 +81,7 @@ Buenos Aires, \fechaInicioName
 
 \vspace{2cm}
 
-Por medio de la presente se acuerda con el \authorname\hspace{1px} que su Trabajo Final de la \degreename\hspace{1px} se titulará ``\ttitle'' y consistirá en la integración del equipo mencionado a un sistema de producción por medio de un arrancador génerico, portable y escalable. El trabajo tendrá un presupuesto preliminar estimado de 624 horas y un costo estimado de \$9855, con fecha de inicio el \fechaInicioName\hspace{1px} y fecha de presentación pública el \fechaFinalName.
+Por medio de la presente se acuerda con el \authorname\hspace{1px} que su Trabajo Final de la \degreename\hspace{1px} se titulará ``\ttitle'' y consistirá en la integración del equipo mencionado a un sistema de producción por medio de un arrancador génerico, portable y escalable. El trabajo tendrá un presupuesto preliminar estimado de 628 horas y un costo estimado de \$9855, con fecha de inicio el \fechaInicioName\hspace{1px} y fecha de presentación pública el \fechaFinalName.
 
 Se adjunta a esta acta la planificación inicial.
 
@@ -475,35 +475,35 @@ Descripción &
 \section{13. Gestión de riesgos}
 \label{sec:riesgos}
 
-Riesgo 1: El kit de desarrollo de la memoria externa se daña.
+Riesgo 1: el kit de desarrollo de la memoria externa se daña.
 \begin{itemize}
-	\item Severidad (S): 4, se pierde la capacidad de probar módulos o aplicaciones que involucren el uso de la memoria. Afecta más si encontramos
+	\item Severidad (S): 4, se pierde la capacidad de probar módulos o aplicaciones que involucren el uso de la memoria. Afecta más el proyecto se encuentra
 	en las etapas de prueba de los últimos módulos.
-	\item Probabilidad de ocurrencia (O): 2, no se ejecutaran comandos que puedan dejar obsoleto o el kit. Además, no se hará una gran cantidad de escrituras o borrados a la memoria flash. Se analizará cuidadosamente las conexiones del integrado antes de energizarlo para evitar fallos eléctricos.
+	\item Probabilidad de ocurrencia (O): 2, no se ejecutarán comandos que puedan dejar obsoleto el kit. Además, no se hará una gran cantidad de escrituras o borrados a la memoria flash. Se analizarán cuidadosamente las conexiones del integrado antes de energizarlo para evitar fallos eléctricos.
 \end{itemize}   
 
-Riesgo 2: El kit de desarrollo del SoC se daña.
+Riesgo 2: el kit de desarrollo del SoC se daña.
 \begin{itemize}
 	\item Severidad (S): 8, porque todas las sub-tareas de pruebas en el hardware serán retrasadas hasta importar otro equipo y su costo es notable.
 	\item Probabilidad de ocurrencia (O): 6, porque existe la probabilidad que los desarrolladores no hayan trabajado con el kit antes. La implementación de módulos relacionados al arranque de la placa aumenta el riesgo de daño permanente si no se trata con precaución.
 \end{itemize}
 
-Riesgo 3: El encargado en el equipo de backend del sistema de producción de la empresa se retira.
+Riesgo 3: el responsable del equipo del desarrollo del backend del sistema de producción de la empresa se retira.
 \begin{itemize}
 	\item Severidad (S): 5, porque a pesar de que exista documentación del sistema producción, se perdería la capacidad de hacer preguntas directas y específicas que pueden no estar explicitas en los documentos.
 	\item Probabilidad de ocurrencia (O): 1, el encargado en el equipo de backend tiene bastantes años trabajando para la empresa y es personal de confianza.
 \end{itemize}
 
-Riesgo 4: El SoC inicial es cambiado por otro de distinto fabricante.
+Riesgo 4: el SoC inicial es cambiado por otro de distinto fabricante.
 \begin{itemize}
 	\item Severidad (S): 4, debido a que el valor agregado de la propuesta es un bootloader portable, adaptar los módulos a un nuevo circuito integrado hace que la tarea de migración reduzca su dificultad.
-	\item Probabilidad de ocurrencia (O): 5, porque a pesar de que se pensó incorporar el SiWG917 en un principio, puede que el requerimiento de un cliente haga cambiarlo. 
+	\item Probabilidad de ocurrencia (O): 5, aunque en un principio se consideró incorporar el SiWG917, es posible que un requerimiento de un cliente lo modifique.
 \end{itemize}
 
-Riesgo 5: Nuevas personas añadidas al equipo no mantienen la calidad del código. 
+Riesgo 5: nuevas personas añadidas al equipo no mantienen la calidad del código. 
 \begin{itemize}
 	\item Severidad (S): 6, no mantener la misma calidad del código llevan a mayor aparición de errores, poca legibilidad del proyecto y retraso ocasionado por sus consecuentes correcciones.
-	\item Probabilidad de ocurrencia (O): 5, cada desarrollador programa de distinta manera y puede que sus prácticas no se alinien a las requeridas para cumplir los requerimiento del proyecto.  
+	\item Probabilidad de ocurrencia (O): 5, cada desarrollador programa de distinta manera y puede que sus prácticas no se alinien a las requeridas para cumplir los requerimientos del proyecto.  
 \end{itemize}
 
 \begin{table}[htpb]
@@ -524,13 +524,13 @@ Criterio adoptado:
 
 Se tomarán medidas de mitigación en los riesgos cuyos números de RPN sean mayores a 25.
 
-Riesgo 2: Al implementar módulos con riesgo de dañar el kit de desarrollo, se repetirá la lectura de datasheet del SoC y guías para desarrolladores. Además, constantemente se pedirá retroalimentación del código e ideas para estos módulos al director del proyecto.
+Riesgo 2: al implementar módulos con riesgo de dañar el kit de desarrollo, se repetirá la lectura de datasheet del SoC y guías para desarrolladores. Además, constantemente se pedirá retroalimentación del código e ideas para estos módulos al director del proyecto.
 \begin{itemize}
 	\item Severidad (S): 5, los errores que puedan llegar a ocurrir son reversibles.  
 	\item Probabilidad de ocurrencia (O): 3, realizar lecturas antes de implementar módulos delicados y contar la retroalimentación de personal con experiencia previa trabajando con la placa de desarrollo, reduce las probabilidades de dañar el equipo.
 \end{itemize}
 
-Riesgo 5: Se dará capacitación sobre los estándares y prácticas que se espera en el código así como el procedimiento a realizar y organización para cada grupo de tareas. Se añadirán al equipo personas con buen desempeño en la programación.
+Riesgo 5: se dará capacitación sobre los estándares y prácticas que se esperan en el código, así como el procedimiento a realizar y organización para cada grupo de tareas. Se añadirán al equipo personas con buen desempeño en la programación.
 \begin{itemize}
 	\item Severidad (S): 4, menos aparición de errores y menores retrasos en las implementaciones.   
 	\item Probabilidad de ocurrencia (O): 3, los miembros añadidos al equipo tendrán bases previas y la capacitación será adecuada.
@@ -540,41 +540,41 @@ Riesgo 5: Se dará capacitación sobre los estándares y prácticas que se esper
 \label{sec:calidad}
 
 \begin{itemize} 
-\item Req \#1: La placa debe acoplarse al sistema de producción de la empresa.
+\item Req \#1: la placa debe acoplarse al sistema de producción de la empresa.
 
 \begin{itemize}
-	\item Verificación: Se verificará que las tramas entre la placa y el sistema de producción sean correctamente enviadas, recibidas y procesadas.
-	\item Validación: Se podrá usar el programa de escritorio para producción de la empresa para realizar un proceso completo sobre la placa.
+	\item verificación: se verificará que las tramas entre la placa y el sistema de producción sean correctamente enviadas, recibidas y procesadas.
+	\item validación: se podrá usar el programa de escritorio para producción de la empresa para realizar un proceso completo sobre la placa.
 \end{itemize}
 
 \end{itemize}
 
 \begin{itemize} 
-\item Req \#2: La placa debe guardar los datos de producción de la compañía.
+\item Req \#2: la placa debe guardar los datos de producción de la compañía.
 
 \begin{itemize}
-	\item Verificación: Se verificará que la información recibida sea correctamente guardada en la memoria externa sin ningún tipo de corrupción. Además, se verificará que no exista irregularidades al leerla de esta.  
-	\item Validación: Se realizará una impresión en la consola de logs con los datos recibidos para su visualización al finalizar el proceso de producción.
+	\item verificación: se verificará que la información recibida sea correctamente guardada en la memoria externa sin ningún tipo de corrupción. Además, se verificará que no existan irregularidades al leerla de esta.  
+	\item validación: se realizará una impresión en la consola de logs con los datos recibidos para su visualización al finalizar el proceso de producción.
 \end{itemize}
 
 \end{itemize}
 
 \begin{itemize} 
-\item Req \#3: Los binarios, antes de ser almacenados, son encriptados usando el módulo de seguridad del sistema.
+\item Req \#3: los binarios, antes de ser almacenados, son encriptados usando el módulo de seguridad del sistema.
 
 \begin{itemize}
-	\item Verificación: Se verificará que los datos que pasen por el módulo de seguridad sean correctamente encriptados. Se hará pruebas de desencriptación para comprobar que se obtengan los datos originales en texto plano. Además, se deser necesario se hará uso de herramientas de terceros que nos permitan comparar que nuestra salida de encriptación es correcta. 
-	\item Validación: Se podrá mostrar al cliente una parte distinguible del contenido original del binarios e imprimir en la consola de logs la misma sección del contenido encriptada en la memoria externa. Se explicará que algoritmo se usó y su robustez de manera superficial.
+	\item verificación: se verificará que los datos que pasen por el módulo de seguridad sean correctamente encriptados. Se harán pruebas de desencriptación para comprobar que se obtengan los datos originales en texto plano. Además, de ser necesario se hará uso de herramientas de terceros que permitan comparar que nuestra salida de encriptación es correcta. 
+	\item validación: se podrá mostrar al cliente una parte distinguible del contenido original del binario e imprimir en la consola de logs la misma sección del contenido encriptada en la memoria externa. Se explicará que algoritmo se usó y su robustez de manera superficial.
 \end{itemize}
 
 \end{itemize}
 
 \begin{itemize} 
-\item Req \#4: El usuario puede cargar y guardar varios binarios a la placa objetivo.
+\item Req \#4: el usuario puede cargar y guardar varios binarios a la placa objetivo.
 
 \begin{itemize}
-	\item Verificación: Se verificará que el contenido de los binarios guardados en la memoria externa sean correctos. Se usarán algoritmos específicos para comprobar la integridad de los datos guardados. La memoria externa será particionada para guardar distintos binarios, se leerá las particiones usadas para comprobar su contenido. Los binarios guardados tendrán una cabecera con datos relevantes sobre estos. 
-	\item Validación: Se imprimirá en la consola de logs un listado con los datos relevantes de cada binario guardado en la memoria externa.
+	\item verificación: se verificará que el contenido de los binarios guardados en la memoria externa sean correctos. Se usarán algoritmos específicos para comprobar la integridad de los datos guardados. La memoria externa será particionada para guardar distintos binarios, se leerán las particiones usadas para comprobar su contenido. Los binarios guardados tendrán una cabecera con datos relevantes sobre estos. 
+	\item validación: se imprimirá en la consola de logs un listado con los datos relevantes de cada binario guardado en la memoria externa.
 \end{itemize}
 
 \end{itemize}
@@ -582,61 +582,61 @@ Riesgo 5: Se dará capacitación sobre los estándares y prácticas que se esper
 \newpage
 
 \begin{itemize} 
-\item Req \#5: El usuario puede arrancar cualquier binario cargado a la placa objetivo.
+\item Req \#5: el usuario puede ejecutar cualquier binario cargado a la placa objetivo.
 
 \begin{itemize}
-	\item Verificación: Se verificará la correcta ejecución de los binarios siguiendo los lineamientos del fabricante y de la arquitectura del equipo. Se verificará que, sin un reinicio o apagado de la placa, se puedan arrancar distintos binarios guardados en la memoria externa. 
-	\item Validación: Se preparán dos aplicaciones distintivas entre ellas y se demostrará el arranque y ejecución de cada una de ellas usando el bootloader.
+	\item verificación: se verificará la correcta ejecución de los binarios siguiendo los lineamientos del fabricante y de la arquitectura del equipo. Se verificará que, sin un reinicio o apagado de la placa, se puedan arrancar distintos binarios guardados en la memoria externa. 
+	\item validación: se preparán dos aplicaciones distintivas entre ellas y se demostrará el arranque y ejecución de cada una de ellas usando el bootloader.
 \end{itemize}
 
 \end{itemize}
 
 \begin{itemize} 
-\item Req \#6: El sistema debe poder volver al bootloader.
+\item Req \#6: el sistema debe poder volver al bootloader.
 
 \begin{itemize}
-	\item Verificación: La aplicación de bootloader estará en la memoria interna del SoC. Cada aplicación cargada puede volver a ejecutar el arrancador. Se verificará que se haga el salto de aplicación correctamente siguiendo los lineamientos del fabricante y la arquitectura del equipo.
-	\item Validación: El bootloader imprimirá a través de la consola de logs un mensaje específico de bienvenida al ejecutarse. Los binarios cargados para la validación tendrán una señal de entrada simple, como presionar un botón, para volver al bootloader.
+	\item verificación: la aplicación de bootloader estará en la memoria interna del SoC. Cada aplicación cargada puede volver a ejecutar el arrancador. Se verificará que se haga el salto de aplicación correctamente siguiendo los lineamientos del fabricante y la arquitectura del equipo.
+	\item validación: el bootloader imprimirá a través de la consola de logs un mensaje específico de bienvenida al ejecutarse. Los binarios cargados para la validación tendrán una señal de entrada simple, como presionar un botón, para volver al bootloader.
 \end{itemize}
 
 \end{itemize}
 
 \begin{itemize} 
-\item Req \#7: Documentación usando Doxygen en todos los módulos, componentes o drivers.
+\item Req \#7: documentación usando Doxygen en todos los módulos, componentes o drivers.
 
 \begin{itemize}
-	\item Verificación: Se usará \textit{cmake} para la automatización de generación de la documentación de Doxygen, se verificará la salida. Se asegurará de que los módulos de software sigan los lineamientos para una correcta generación de la documentación.
-	\item Validación: Se mostrará la documentación generada por Doxygen como un html en el cual se pueda navegar a través de los distintos módulos de software implementados. 
+	\item verificación: se usará \textit{cmake} para la automatización de generación de la documentación de Doxygen, se verificará la salida. Se asegurará de que los módulos de software sigan los lineamientos para una correcta generación de la documentación.
+	\item validación: se mostrará la documentación generada por Doxygen como un archivo en formato HTML en el cual se pueda navegar a través de los distintos módulos de software implementados. 
 \end{itemize}
 
 \end{itemize}
 
 \begin{itemize} 
-\item Req \#8: Testing de driver para memoria externa.
+\item Req \#8: testing de driver para memoria externa.
 
 \begin{itemize}
-	\item Verificación: Realizar casos de TDD sobre el driver de memoria externa. Realizar pruebas en la placa de desarrollo. Verificar integridad de datos escritos y leídos de la memoria externa. Cuando se compile el componente, se deberá pasar por los casos de testing realizados.
-	\item Validación: Al realizar cambios sobre el componente se podrá verificar que los casos de TDD siguen siendo exitosos.
+	\item verificación: realizar casos de TDD sobre el driver de memoria externa. Realizar pruebas en la placa de desarrollo. Verificar integridad de datos escritos y leídos de la memoria externa. Cuando se compile el componente, se deberá pasar por los casos de testing realizados.
+	\item validación: al realizar cambios sobre el componente se podrá verificar que los casos de TDD siguen siendo exitosos.
 \end{itemize}
 
 \end{itemize}
 
 \begin{itemize} 
-\item Req \#9: Testing de administración de particiones.
+\item Req \#9: testing de administración de particiones.
 
 \begin{itemize}
-	\item Verificación: Realizar casos de TDD sobre el módulo de administarción de particiones. Realizar pruebas en la placa de desarrollo. Verificar que el módulo sea portable y siga lineamientos del fabricante y arquitectura para su implementación. Cuando se compile el componente, se deberá pasar por los casos de testing realizados.
-	\item Validación: Al realizar cambios sobre el componente se podrá verificar que los casos de TDD siguen siendo exitosos.
+	\item verificación: realizar casos de TDD sobre el módulo de administarción de particiones. Realizar pruebas en la placa de desarrollo. Verificar que el módulo sea portable y siga lineamientos del fabricante y arquitectura para su implementación. Cuando se compile el componente, se deberá pasar por los casos de testing realizados.
+	\item validación: al realizar cambios sobre el componente se podrá verificar que los casos de TDD siguen siendo exitosos.
 \end{itemize}
 
 \end{itemize}
 \newpage
 
 \begin{itemize} 
-\item Req \#10: Testing de módulo de seguridad.
+\item Req \#10: testing de módulo de seguridad.
 
 \begin{itemize}
-	\item Verificación: Realizar casos de TDD sobre el módulo de seguridad. Realizar pruebas en la placa de desarrollo. Verificar que el algoritmos de seguridad funcione correctamente. Verificación de la integridad de los datos que pasan por este módulo. Cuando se compile el componente, se deberá pasar por los casos de testing realizados.
+	\item verificación: realizar casos de TDD sobre el módulo de seguridad. Realizar pruebas en la placa de desarrollo. Verificar que el algoritmo de seguridad funcione correctamente. Verificación de la integridad de los datos que pasan por este módulo. Cuando se compile el componente, se deberá pasar por los casos de testing realizados.
 	\item Validación: Al realizar cambios sobre el componente se podrá verificar que los casos de TDD siguen siendo exitosos.
 \end{itemize}
 
