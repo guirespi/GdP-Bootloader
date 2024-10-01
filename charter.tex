@@ -477,7 +477,7 @@ Descripción &
 
 Riesgo 1: el kit de desarrollo de la memoria externa se daña.
 \begin{itemize}
-	\item Severidad (S): 4, se pierde la capacidad de probar módulos o aplicaciones que involucren el uso de la memoria. Afecta más el proyecto se encuentra
+	\item Severidad (S): 4, se pierde la capacidad de probar módulos o aplicaciones que involucren el uso de la memoria. Afecta más si el proyecto se encuentra
 	en las etapas de prueba de los últimos módulos.
 	\item Probabilidad de ocurrencia (O): 2, no se ejecutarán comandos que puedan dejar obsoleto el kit. Además, no se hará una gran cantidad de escrituras o borrados a la memoria flash. Se analizarán cuidadosamente las conexiones del integrado antes de energizarlo para evitar fallos eléctricos.
 \end{itemize}   
@@ -502,7 +502,7 @@ Riesgo 4: el SoC inicial es cambiado por otro de distinto fabricante.
 
 Riesgo 5: nuevas personas añadidas al equipo no mantienen la calidad del código. 
 \begin{itemize}
-	\item Severidad (S): 6, no mantener la misma calidad del código llevan a mayor aparición de errores, poca legibilidad del proyecto y retraso ocasionado por sus consecuentes correcciones.
+	\item Severidad (S): 6, no mantener la misma calidad del código resulta en una mayor aparición de errores, disminuye la legibilidad del proyecto y provoca retrasos debido a las correcciones necesarias.
 	\item Probabilidad de ocurrencia (O): 5, cada desarrollador programa de distinta manera y puede que sus prácticas no se alinien a las requeridas para cumplir los requerimientos del proyecto.  
 \end{itemize}
 
@@ -563,7 +563,7 @@ Riesgo 5: se dará capacitación sobre los estándares y prácticas que se esper
 \item Req \#3: los binarios, antes de ser almacenados, son encriptados usando el módulo de seguridad del sistema.
 
 \begin{itemize}
-	\item verificación: se verificará que los datos que pasen por el módulo de seguridad sean correctamente encriptados. Se harán pruebas de desencriptación para comprobar que se obtengan los datos originales en texto plano. Además, de ser necesario se hará uso de herramientas de terceros que permitan comparar que nuestra salida de encriptación es correcta. 
+	\item verificación: se verificará que los datos que pasen por el módulo de seguridad sean correctamente encriptados. Se harán pruebas de desencriptación para comprobar que se obtengan los datos originales en texto plano. Además, de ser necesario se hará uso de herramientas de terceros que permitan comparar que la salida de encriptación es correcta. 
 	\item validación: se podrá mostrar al cliente una parte distinguible del contenido original del binario e imprimir en la consola de logs la misma sección del contenido encriptada en la memoria externa. Se explicará que algoritmo se usó y su robustez de manera superficial.
 \end{itemize}
 
@@ -637,7 +637,7 @@ Riesgo 5: se dará capacitación sobre los estándares y prácticas que se esper
 
 \begin{itemize}
 	\item verificación: realizar casos de TDD sobre el módulo de seguridad. Realizar pruebas en la placa de desarrollo. Verificar que el algoritmo de seguridad funcione correctamente. Verificación de la integridad de los datos que pasan por este módulo. Cuando se compile el componente, se deberá pasar por los casos de testing realizados.
-	\item Validación: Al realizar cambios sobre el componente se podrá verificar que los casos de TDD siguen siendo exitosos.
+	\item validación: al realizar cambios sobre el componente se podrá verificar que los casos de TDD siguen siendo exitosos.
 \end{itemize}
 
 \end{itemize}
